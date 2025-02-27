@@ -13,7 +13,7 @@ class TodoItemResource extends JsonResource
             'id' => $this->id,
             'checklist_id' => $this->checklist_id,
             'title' => $this->title,
-            'completed' => $this->completed,
+            'completed' => $this->status,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),
         ];

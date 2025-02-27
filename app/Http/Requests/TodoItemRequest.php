@@ -15,7 +15,7 @@ class TodoItemRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'completed' => 'boolean',
+            'status' => 'boolean',
         ];
     }
 
@@ -24,7 +24,7 @@ class TodoItemRequest extends FormRequest
         return [
             'title.required' => 'Title is required.',
             'title.max' => 'Title must not exceed 255 characters.',
-            'completed.boolean' => 'Completed must be a boolean value.',
+            'status.boolean' => 'status must be a boolean value.',
         ];
     }
 }

@@ -20,7 +20,7 @@ class TodoItemController extends Controller
     {
         $todoItem = $checklist->todoItems()->create([
             'title' => $request->title,
-            'completed' => $request->completed ?? false,
+            'status' => $request->completed ?? false,
         ]);
 
         return response()->json([
@@ -32,6 +32,23 @@ class TodoItemController extends Controller
     public function show(TodoItem $todoItem)
     {
         return new TodoItemResource($todoItem);
+    }
+
+    public function update(TodoItemRequest $request, $checklistId, TodoItem $todoItem)
+    {
+        if ($todoItem->checklist_id != $checklistId) {
+            return response()->json(['message' => 'Item does not belong to the specified checklist'], 403);
+        }
+
+        $todoItem->update([
+            'title' => $request->title,
+            'status' => $request->status ?? false,
+        ]);
+
+        return response()->json([
+            'message' => 'To-do item updated successfully!',
+            'todo_item' => new TodoItemResource($todoItem),
+        ], 200);
     }
 
     public function destroy($checklistId, $todoItemId)
