@@ -24,7 +24,7 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::get('/user', function () {
         return response()->json(auth()->user());
     });
-    Route::post('/checklists', [ChecklistController::class, 'store']);
+    Route::resource('/checklists', ChecklistController::class)->only('index','store');
     Route::resource('/checklists.todo-items', TodoItemController::class)->only(['index', 'store']);
     Route::resource('/todo-items', TodoItemController::class)->only(['show']);
     Route::post('/logout', [AuthController::class, 'logout']);
