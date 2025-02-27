@@ -11,7 +11,7 @@ class ChecklistController extends Controller
 {
     public function index(Request $request)
     {
-        $checklists = Checklist::latest()->paginate(10); // Pagination opsional
+        $checklists = Checklist::latest()->paginate(10); 
         return ChecklistResource::collection($checklists);
     }
     public function store(ChecklistRequest $request)
@@ -26,5 +26,14 @@ class ChecklistController extends Controller
             'message' => 'Checklist item created successfully!',
             'checklist' => new ChecklistResource($checklist),
         ], 201);
+    }
+
+    public function destroy(Checklist $checklist)
+    {
+        $checklist->delete();
+
+        return response()->json([
+            'message' => 'Checklist deleted successfully'
+        ], 200);
     }
 }
