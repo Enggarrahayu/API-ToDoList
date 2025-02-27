@@ -27,4 +27,10 @@ class TodoItemController extends Controller
             'todo_item' => new TodoItemResource($todoItem),
         ], 201);
     }
+
+    public function show(TodoItem $todoItem)
+    {
+        return new TodoItemResource($todoItem);
+    }
+    
 }
