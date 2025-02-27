@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChecklistController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,7 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::get('/user', function () {
         return response()->json(auth()->user());
     });
+    Route::post('/checklists', [ChecklistController::class, 'store']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });
