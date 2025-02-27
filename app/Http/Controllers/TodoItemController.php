@@ -32,5 +32,21 @@ class TodoItemController extends Controller
     {
         return new TodoItemResource($todoItem);
     }
-    
+
+    public function destroy($checklistId, $todoItemId)
+    {
+        $todoItem = TodoItem::where('id', $todoItemId)
+            ->where('checklist_id', $checklistId)
+            ->first();
+
+        if (!$todoItem) {
+            return response()->json(['message' => 'Item is not found'], 404);
+        }
+
+        $todoItem->delete();
+
+        return response()->json([
+            'message' => 'Item deleted successfully'
+        ], 200);
+    }
 }
