@@ -7,6 +7,7 @@ use App\Http\Resources\TodoItemResource;
 use App\Models\Checklist;
 use App\Models\TodoItem;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class TodoItemController extends Controller
 {
@@ -47,6 +48,27 @@ class TodoItemController extends Controller
 
         return response()->json([
             'message' => 'Item deleted successfully'
+        ], 200);
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|boolean',
+        ]);
+
+        $todoItem = TodoItem::find($id);
+
+        if (!$todoItem) {
+            return response()->json(['message' => 'Item is not found'], 404);
+        }
+
+        $todoItem->status = $request->status;
+        $todoItem->save();
+
+        return response()->json([
+            'message' => 'Status updated successfully',
+            'data' => $todoItem
         ], 200);
     }
 }
