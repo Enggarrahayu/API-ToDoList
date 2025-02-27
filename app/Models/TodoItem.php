@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Checklist extends Model
+class TodoItem extends Model
 {
     use HasFactory;
     protected $guarded = [];
 
-    public function todoItems()
+    public function checklist()
     {
-        return $this->hasMany(TodoItem::class);
+        return $this->belongsTo(Checklist::class);
     }
 }

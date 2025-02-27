@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChecklistController;
+use App\Http\Controllers\TodoItemController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,7 @@ Route::middleware(['jwt.auth'])->group(function () {
         return response()->json(auth()->user());
     });
     Route::post('/checklists', [ChecklistController::class, 'store']);
+    Route::resource('/checklists.todo-items', TodoItemController::class)->only(['store']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });
