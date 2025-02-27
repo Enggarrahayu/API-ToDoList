@@ -10,7 +10,12 @@ use Illuminate\Http\JsonResponse;
 
 class TodoItemController extends Controller
 {
-     public function store(TodoItemRequest $request, Checklist $checklist): JsonResponse
+    public function index(Checklist $checklist)
+    {
+        return TodoItemResource::collection($checklist->todoItems);
+    }
+
+    public function store(TodoItemRequest $request, Checklist $checklist): JsonResponse
     {
         $todoItem = $checklist->todoItems()->create([
             'title' => $request->title,
